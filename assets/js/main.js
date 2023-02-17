@@ -1,25 +1,114 @@
 console.log("test");
 
-/* fetch("https://newsapi.org/v2/everything?q=bitcoin&apiKey=d1bac37fa63346329db5ce20423e0671")
-.then(response => response.json())
-.then(data => {
-    console.log(data)
-    fake_fetch_function(data)
 
-// !!! Ende fetch 
-}) */
+/* 
+
+API
+https://newsapi.org/
+
+
+
+Bonus: 
+Anzeige nach Sprache
+Über Schlüsselwort suchen
+
+WICHTIG:
+Wenn du eine Fehlermeldung mit “corsNotAllowed” bekommst:
+Nutze kein https, sondern http!
+
+
+*/
+
+
+const outputField = document.querySelector("#outputField");
+
+const suchLeiste = document.querySelector("#suchLeiste");
+
+const btnFinden = document.querySelector("#btnFinden");
+btnFinden.addEventListener("click", () => {
+    const suchLeiste_Value = suchLeiste.value
+    console.log(suchLeiste_Value);
+    const h1 = document.querySelector("h1");
+    h1.innerText = `News über ${suchLeiste_Value}`;
+
+    const fetchUrlFinden = `https://newsapi.org/v2/everything?q=${suchLeiste_Value}&apiKey=d1bac37fa63346329db5ce20423e0671`
+    console.log(fetchUrlFinden);
+
+    fetch(fetchUrlFinden)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            fake_fetch_function(data)
+
+            // !!! Ende fetch 
+        })
+
+
+    // !!! Ende Event Listener
+})
+
+
+
+
 
 // hier jetzt den code rein, was man praktisch im fetch machen würde ;-)
-function fake_fetch_function(data){       
-console.log(data)
+function fake_fetch_function(data) {
 
-document.write(data)
+    // Muster
+    /* 
+            <section>
+                <article>
+    
+                    <a href=" - url - "> <img src=" - urlToImage - " alt="Bild - titel - "> </a>
+                </article>
+                <article>
+                    <h2>titel</h2>
+                    <p>description</p> // kürzen evtl. zu lang
+                    <h5>publishedAt</h5>
+    
+                    <a href=" - url - "> <button>lese mehr</button> </a>
+    
+                </article>
+            </section>
+    */
+    // data ist kein Array sonder object
+    console.log(typeof (data)) // object
+    console.log(Array.isArray(data)) // false
+    console.log(data)
 
+    data.articles.forEach(element => {
+        console.log(element)
+
+        outputField.innerHTML += `
+
+<section class="data_Section">
+<article>
+
+    <a href="${element.url}"> <img src="${element.urlToImage}" alt="es gibt kein Bild zu:  --> ${element.title}"> </a>
+</article>
+<article>
+    <h2>${element.title}</h2>
+    <p>${element.description}</p>
+    <h5>${element.publishedAt.slice(0, 10)}</h5>
+
+    <a href="${element.url}"> <button>lese mehr, klick mich oder das Bild</button> </a>
+
+</article>
+</section>
+`
+
+        // !!! Ende forEach
+    })
+
+    // !!! Ende fake_fetch_function
 }
 
 // !! Daten hart aus dem Browser Console mit F12 copy and paste holen
+// !!! zu Testzwecken, damit man nicht ständig       anfragen an Server braucht und Kontingent verbraucht
 // speichert sich praktisch die Daten von Server lokal ab
 // so muss man nicht ständig anfragen stellen, denn man hat ja auch nur 
+// !! const data
+/* 
 const data = {
 
     
@@ -1327,7 +1416,8 @@ const data = {
                 "content": "Jan 17 (Reuters) - Bankrupt crypto exchange FTX said in a report to creditors on Tuesday that about $415 million in cryptocurrency had been stolen as a result of hacks.\r\nSome $323 million in crypto h… [+2246 chars]"
             }
         ]
-    }
+    } 
+    */
 
 
 fake_fetch_function(data)
