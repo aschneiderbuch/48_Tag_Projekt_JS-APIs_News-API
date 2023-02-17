@@ -20,13 +20,46 @@ Nutze kein https, sondern http!
 */
 
 
+/************************************************************************************************
+ * 
+ * Hier fetch der am Anfang mal News über Bitcoins holt
+ * damit die Seite gefüllt ist
+ * 
+ ************************************************************************************************/
+
+const fetchUrlFinden = `https://newsapi.org/v2/everything?q=bitcoins&apiKey=d1bac37fa63346329db5ce20423e0671`
+console.log(fetchUrlFinden);
+
+fetch(fetchUrlFinden)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        fake_fetch_function(data)
+
+        // !!! Ende fetch 
+    })
+
+
+
+
 const outputField = document.querySelector("#outputField");
 
 const suchLeiste = document.querySelector("#suchLeiste");
 
 const btnFinden = document.querySelector("#btnFinden");
+let suchLeiste_Value = "";
+
+
+
+/************************************************************************************************
+ * 
+ *  hier wird eine suchLeiste mit inhalt gefüllt 
+ * und die überschreibt dann die default Daten von Bitcoin, die weiter unten geladen werden
+ *  
+ * 
+ ************************************************************************************************/
 btnFinden.addEventListener("click", () => {
-    const suchLeiste_Value = suchLeiste.value
+    suchLeiste_Value = suchLeiste.value;
     console.log(suchLeiste_Value);
     const h1 = document.querySelector("h1");
     h1.innerText = `News über ${suchLeiste_Value}`;
@@ -43,16 +76,46 @@ btnFinden.addEventListener("click", () => {
             // !!! Ende fetch 
         })
 
+/*         console.log(suchLeiste_Value)
+
+        const bildImg_Url_unsplash = `https://unsplash.com/napi/search?query=${suchLeiste_Value}&per_page=20`
+        console.log(bildImg_Url_unsplash)
+
+        fetch(bildImg_Url_unsplash)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
+            }) */
+
+          
+        
+     
+        /* 
+        
+        https://unsplash.com/napi/search?query=hund&per_page=20
+        
+        */
+
+
 
     // !!! Ende Event Listener
-})
+})  
 
 
 
 
-
+/************************************************************************************************
+ * 
+ *  hier jetzt den code rein, was man praktisch im fetch machen würde ;-)
+ *  !!! hier wirds zusammengebaut
+ * 
+ ************************************************************************************************/
 // hier jetzt den code rein, was man praktisch im fetch machen würde ;-)
+// !!! hier wirds zusammengebaut
 function fake_fetch_function(data) {
+
+    outputField.innerHTML = "";    //  soll alles leer machen
 
     // Muster
     /* 
@@ -78,6 +141,8 @@ function fake_fetch_function(data) {
 
     data.articles.forEach(element => {
         console.log(element)
+        
+        
 
         outputField.innerHTML += `
 
@@ -103,6 +168,13 @@ function fake_fetch_function(data) {
     // !!! Ende fake_fetch_function
 }
 
+
+/************************************************************************************************
+ * 
+ *  hier Daten hart als Variablen
+ *  
+ * 
+ ************************************************************************************************/
 // !! Daten hart aus dem Browser Console mit F12 copy and paste holen
 // !!! zu Testzwecken, damit man nicht ständig       anfragen an Server braucht und Kontingent verbraucht
 // speichert sich praktisch die Daten von Server lokal ab
@@ -1419,8 +1491,10 @@ const data = {
     } 
     */
 
-
+/* 
+// !!!    wenn const data auskommentiert wurde dann das auch auskommentieren
 fake_fetch_function(data)
-
+ 
+*/
 
 
