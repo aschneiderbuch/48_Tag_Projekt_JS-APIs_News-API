@@ -6,6 +6,7 @@ console.log("test");
 API
 https://newsapi.org/
 
+https://newsapi.org/docs
 
 
 Bonus: 
@@ -76,31 +77,12 @@ btnFinden.addEventListener("click", () => {
             // !!! Ende fetch 
         })
 
-/*         console.log(suchLeiste_Value)
 
-        const bildImg_Url_unsplash = `https://unsplash.com/napi/search?query=${suchLeiste_Value}&per_page=20`
-        console.log(bildImg_Url_unsplash)
-
-        fetch(bildImg_Url_unsplash)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-
-            }) */
-
-          
-        
-     
-        /* 
-        
-        https://unsplash.com/napi/search?query=hund&per_page=20
-        
-        */
 
 
 
     // !!! Ende Event Listener
-})  
+})
 
 
 
@@ -141,26 +123,31 @@ function fake_fetch_function(data) {
 
     data.articles.forEach(element => {
         console.log(element)
-        
-        
+
+
 
         outputField.innerHTML += `
 
 <section class="data_Section">
 <article>
 
-    <a href="${element.url}"> <img src="${element.urlToImage}" alt="es gibt kein Bild zu:  --> ${element.title}"> </a>
+    <a href="${element.url}" target="_blank"> <img src="${element.urlToImage}" alt="es gibt kein Bild zu:  --> ${element.title}"> </a>
 </article>
 <article>
     <h2>${element.title}</h2>
     <p>${element.description}</p>
     <h5>${element.publishedAt.slice(0, 10)}</h5>
 
-    <a href="${element.url}"> <button>lese mehr, klick mich oder das Bild</button> </a>
+    <a href="${element.url}" target="_blank"> <button>lese mehr, klick mich oder das Bild</button> </a>
 
 </article>
 </section>
 `
+
+        // hier logo Bild verändern
+        const logo = document.querySelector("#logo");
+        console.log(logo);
+        logo.src = `${element.urlToImage}`;
 
         // !!! Ende forEach
     })
@@ -169,21 +156,23 @@ function fake_fetch_function(data) {
 }
 
 
+logo.src = `${data.articles[0].urlToImage}`;
+
 /************************************************************************************************
- * 
+ *
  *  hier Daten hart als Variablen
- *  
- * 
+ *
+ *
  ************************************************************************************************/
 // !! Daten hart aus dem Browser Console mit F12 copy and paste holen
 // !!! zu Testzwecken, damit man nicht ständig       anfragen an Server braucht und Kontingent verbraucht
 // speichert sich praktisch die Daten von Server lokal ab
 // so muss man nicht ständig anfragen stellen, denn man hat ja auch nur 
 // !! const data
-/* 
+/*
 const data = {
 
-    
+
         "status": "ok",
         "totalResults": 13890,
         "articles": [
@@ -1488,13 +1477,37 @@ const data = {
                 "content": "Jan 17 (Reuters) - Bankrupt crypto exchange FTX said in a report to creditors on Tuesday that about $415 million in cryptocurrency had been stolen as a result of hacks.\r\nSome $323 million in crypto h… [+2246 chars]"
             }
         ]
-    } 
+    }
     */
 
-/* 
+/*
 // !!!    wenn const data auskommentiert wurde dann das auch auskommentieren
 fake_fetch_function(data)
- 
+
 */
 
 
+
+// testen mit unsplash Bilder holen
+
+
+/*         console.log(suchLeiste_Value)
+
+        const bildImg_Url_unsplash = `https://unsplash.com/napi/search?query=${suchLeiste_Value}&per_page=20`
+        console.log(bildImg_Url_unsplash)
+
+        fetch(bildImg_Url_unsplash)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+
+            }) */
+
+
+
+
+/*
+ 
+https://unsplash.com/napi/search?query=hund&per_page=20
+ 
+*/
