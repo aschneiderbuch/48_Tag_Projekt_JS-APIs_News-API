@@ -7,6 +7,7 @@ API
 https://newsapi.org/
 
 https://newsapi.org/docs
+https://newsapi.org/docs/endpoints/everything
 
 
 Bonus: 
@@ -28,7 +29,7 @@ Nutze kein https, sondern http!
  * 
  ************************************************************************************************/
 
-const fetchUrlFinden = `https://newsapi.org/v2/everything?q=bitcoins&apiKey=d1bac37fa63346329db5ce20423e0671`
+const fetchUrlFinden = `https://newsapi.org/v2/everything?q=bitcoin&apiKey=d1bac37fa63346329db5ce20423e0671`
 console.log(fetchUrlFinden);
 
 fetch(fetchUrlFinden)
@@ -59,13 +60,35 @@ let suchLeiste_Value = "";
  *  
  * 
  ************************************************************************************************/
+const input_1 = "";  //    &sortBy=publishedAt   popularity, publishedAt.
+// relevancy= näher verwandte Artikel qkommen zuerst.
+// popularity= Artikel aus populären Quellen und Verlagen kommen zuerst.
+// publishedAt= neuste Artikel kommen zuerst.
+const allesOderSpeziel_1_or_2 = "top-headlines"; // top-headlines     everything
+const sprache_1 = ""; //   &language=de
+const datum_1_2 = "&from=2023-02-18&to=2023-01-18"; // &from=2023-02-18&to=2023-02-18
+
+const land_2 = "?country=de"   //   ?country=us                  // ?q=${suchLeiste_Value}
+const category_2 = ""     //   &business     &entertainment
+
 btnFinden.addEventListener("click", () => {
     suchLeiste_Value = suchLeiste.value;
     console.log(suchLeiste_Value);
     const h1 = document.querySelector("h1");
     h1.innerText = `News über ${suchLeiste_Value}`;
+    let suchLeiste_Value_1 = ""
+   
+    // 
+    if (suchLeiste_Value === "") {
+        suchLeiste_Value_1 = suchLeiste_Value
+    }
+    else {
+        suchLeiste_Value_1 = `?q=${suchLeiste_Value}`
+    }
+    console.log(suchLeiste_Value_1);
 
-    const fetchUrlFinden = `https://newsapi.org/v2/everything?q=${suchLeiste_Value}&apiKey=d1bac37fa63346329db5ce20423e0671`
+
+    const fetchUrlFinden = `https://newsapi.org/v2/${allesOderSpeziel_1_or_2}${suchLeiste_Value_1}${input_1}${sprache_1}${land_2}${category_2}${datum_1_2}&apiKey=d1bac37fa63346329db5ce20423e0671`
     console.log(fetchUrlFinden);
 
     fetch(fetchUrlFinden)
