@@ -64,21 +64,23 @@ const input_1 = "";  //    &sortBy=publishedAt   popularity, publishedAt.
 // relevancy= näher verwandte Artikel qkommen zuerst.
 // popularity= Artikel aus populären Quellen und Verlagen kommen zuerst.
 // publishedAt= neuste Artikel kommen zuerst.
-const allesOderSpeziel_1_or_2 = "top-headlines"; // top-headlines     everything
-const sprache_1 = ""; //   &language=de
-const datum_1_2 = "&from=2023-02-18&to=2023-01-18"; // &from=2023-02-18&to=2023-02-18
+const allesOderSpeziel_1_or_2 = "everything"; // top-headlines     everything
+const sprache_1 = "&language=de"; //   &language=de
+const datum_1_2 = "&from=2023-02-01&to=2023-01-18"; // &from=2023-02-18&to=2023-02-18
+const date = new Date();
+console.log(date);
 
-const land_2 = "?country=de"   //   ?country=us                  // ?q=${suchLeiste_Value}
+const land_2 = ""   //   ?country=us                  // ?q=${suchLeiste_Value}
 const category_2 = ""     //   &business     &entertainment
 
 btnFinden.addEventListener("click", () => {
     suchLeiste_Value = suchLeiste.value;
-    console.log(suchLeiste_Value);
+    console.log(suchLeiste_Value)
     const h1 = document.querySelector("h1");
     h1.innerText = `News über ${suchLeiste_Value}`;
     let suchLeiste_Value_1 = ""
    
-    // 
+    // wenn kein suchInput, dann auch keine suchString mit ?q= bauen
     if (suchLeiste_Value === "") {
         suchLeiste_Value_1 = suchLeiste_Value
     }
